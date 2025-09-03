@@ -50,7 +50,7 @@ figlet(
 
 import rateLimit from 'express-rate-limit'
 const app = express()
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -58,6 +58,7 @@ const __dirname = path.dirname(__filename)
 app.use(express.static(path.join(__dirname, 'assets')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.set('trust proxy', 1); // trust first proxy
 
 const homeLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
