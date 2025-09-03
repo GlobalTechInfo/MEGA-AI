@@ -1,12 +1,11 @@
-FROM node:18-bullseye   # works on amd64 + arm64
+# Use Node.js 18 base image (works on amd64 + arm64)
+FROM node:18-bullseye
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install --legacy-peer-deps
-
 COPY . .
 
-EXPOSE 3000
+RUN npm install || yarn install
 
+EXPOSE 5000
 CMD ["npm", "start"]
