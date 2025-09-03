@@ -1,10 +1,12 @@
-FROM quay.io/qasimtech/mega-bot:latest
+FROM node:18-bullseye   # works on amd64 + arm64
 
-RUN git clone https://github.com/GlobalTechInfo/MEGA-AI /root/mega && \
-    rm -rf /root/mega/.git
+WORKDIR /app
 
-WORKDIR /root/mega
-RUN npm install || yarn install
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
 
-EXPOSE 5000
+COPY . .
+
+EXPOSE 3000
+
 CMD ["npm", "start"]
