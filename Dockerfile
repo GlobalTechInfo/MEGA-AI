@@ -1,9 +1,10 @@
-FROM quay.io/qasimtech/mega-bot:latest
+# Use Node.js 18 base image (works on amd64 + arm64)
+FROM node:18-bullseye
 
-RUN git clone https://github.com/GlobalTechInfo/MEGA-AI /root/mega && \
-    rm -rf /root/mega/.git
+WORKDIR /app
 
-WORKDIR /root/mega
+COPY . .
+
 RUN npm install || yarn install
 
 EXPOSE 5000
